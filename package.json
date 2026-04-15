@@ -1,0 +1,27 @@
+{
+  "name": "jup-policy",
+  "version": "0.1.0",
+  "description": "Policy-as-JSON trading agent for the Jupiter Developer Platform. Watches volatility + token health, adjusts DCA allocations, and sets protective OCO limit orders.",
+  "type": "module",
+  "bin": {
+    "jup-policy": "./bin/jup-policy.ts"
+  },
+  "scripts": {
+    "start": "tsx bin/jup-policy.ts",
+    "dev": "tsx watch bin/jup-policy.ts",
+    "test": "tsx --test tests/*.test.ts",
+    "test:live": "tsx --test tests/live-api.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
+  }
+}

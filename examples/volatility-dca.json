@@ -1,0 +1,49 @@
+{
+  "name": "Volatility-triggered DCA into SOL",
+  "pollSeconds": 30,
+  "watchMints": [
+    "So11111111111111111111111111111111111111112"
+  ],
+  "rules": [
+    {
+      "id": "sol-dump-buy",
+      "when": {
+        "all": [
+          { "type": "priceChange24hBelow", "mint": "So11111111111111111111111111111111111111112", "bps": -500 }
+        ]
+      },
+      "then": [
+        { "type": "notify", "message": "SOL down >5% in 24h — firing DCA buy" },
+        {
+          "type": "adjustRecurring",
+          "inputMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "outputMint": "So11111111111111111111111111111111111111112",
+          "inAmountPerInterval": "10000000",
+          "numberOfOrders": 6,
+          "intervalSeconds": 3600
+        }
+      ],
+      "cooldownSeconds": 86400
+    },
+    {
+      "id": "sol-pump-tp",
+      "when": {
+        "all": [
+          { "type": "priceChange24hAbove", "mint": "So11111111111111111111111111111111111111112", "bps": 1000 }
+        ]
+      },
+      "then": [
+        { "type": "notify", "message": "SOL up >10% — placing protective TP limit" },
+        {
+          "type": "createTriggerOrder",
+          "inputMint": "So11111111111111111111111111111111111111112",
+          "outputMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "makingAmountRaw": "100000000",
+          "triggerPriceUsd": 200,
+          "slippageBps": 50
+        }
+      ],
+      "cooldownSeconds": 21600
+    }
+  ]
+}

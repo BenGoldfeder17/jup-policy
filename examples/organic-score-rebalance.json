@@ -1,0 +1,30 @@
+{
+  "name": "Rebalance into high-organic-score JUP",
+  "pollSeconds": 60,
+  "watchMints": [
+    "JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN"
+  ],
+  "rules": [
+    {
+      "id": "jup-health-ok-start-dca",
+      "when": {
+        "all": [
+          { "type": "organicScoreAbove", "mint": "JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN", "score": 80 },
+          { "type": "holderCountAbove", "mint": "JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN", "count": 500000 }
+        ]
+      },
+      "then": [
+        { "type": "notify", "message": "JUP organic score and holder base remain healthy — continuing weekly DCA" },
+        {
+          "type": "adjustRecurring",
+          "inputMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "outputMint": "JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",
+          "inAmountPerInterval": "5000000",
+          "numberOfOrders": 12,
+          "intervalSeconds": 604800
+        }
+      ],
+      "cooldownSeconds": 604800
+    }
+  ]
+}
