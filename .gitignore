@@ -6,3 +6,6 @@ dist/
 .DS_Store
 coverage/
 .tsbuildinfo
+
+# Local session notes — contain secrets, never commit
+CLAUDE.md
