@@ -1,10 +1,14 @@
 import { z } from "zod";
 
 // Well-known Solana mints. Users can of course reference any mint by pubkey.
+// jupUSD is resolved via `GET /tokens/v2/search?query=jupUSD` — it is the
+// Jupiter-native USD stablecoin and the payout token for this bounty.
 export const MINTS = {
   SOL: "So11111111111111111111111111111111111111112",
   USDC: "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
   JUP: "JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",
+  JUPUSD: "JuprjznTrTSp2UFa3ZBUFgwdAmtZCq4MQCwysN55USD",
+  JLUSDC: "9BEcn9aPEmhSPbPQeFGjidRiEKki46fVQDyPpSQXPA2D", // jupiter lend USDC
 } as const;
 
 const MintPubkey = z.string().min(32).max(44);

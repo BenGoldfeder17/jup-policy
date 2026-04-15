@@ -1,0 +1,31 @@
+{
+  "name": "Recycle jupUSD payouts into yield-bearing jlUSDC",
+  "pollSeconds": 60,
+  "watchMints": [
+    "JuprjznTrTSp2UFa3ZBUFgwdAmtZCq4MQCwysN55USD",
+    "9BEcn9aPEmhSPbPQeFGjidRiEKki46fVQDyPpSQXPA2D"
+  ],
+  "rules": [
+    {
+      "id": "move-jupusd-into-jlusdc-when-premium-narrow",
+      "when": {
+        "all": [
+          { "type": "organicScoreAbove", "mint": "9BEcn9aPEmhSPbPQeFGjidRiEKki46fVQDyPpSQXPA2D", "score": 80 },
+          { "type": "holderCountAbove", "mint": "9BEcn9aPEmhSPbPQeFGjidRiEKki46fVQDyPpSQXPA2D", "count": 5000 }
+        ]
+      },
+      "then": [
+        { "type": "notify", "message": "jlUSDC looks healthy — swapping idle jupUSD for yield-bearing jlUSDC" },
+        {
+          "type": "createTriggerOrder",
+          "inputMint": "JuprjznTrTSp2UFa3ZBUFgwdAmtZCq4MQCwysN55USD",
+          "outputMint": "9BEcn9aPEmhSPbPQeFGjidRiEKki46fVQDyPpSQXPA2D",
+          "makingAmountRaw": "250000000",
+          "triggerPriceUsd": 1.035,
+          "slippageBps": 25
+        }
+      ],
+      "cooldownSeconds": 86400
+    }
+  ]
+}
